@@ -10,21 +10,29 @@ import javafx.collections.ObservableList;
 import java.time.LocalDate;
 
 public class BirbBox {
+
     private final ObservableList<Birb> birbsObs = FXCollections.observableArrayList();
     private final ListProperty<Birb> birbs = new SimpleListProperty<>(birbsObs);
-        public ListProperty<Birb> birbsProperty() {return birbs;}
-        public ObservableList<Birb> getBirbs() {return birbs.get();}
+    public ListProperty<Birb> birbsProperty() {return birbs;}
+    public ObservableList<Birb> getBirbs() {return birbs.get();}
 
     private final ObjectProperty<LocalDate> birbBoxTime = new SimpleObjectProperty<>();
-        public ObjectProperty<LocalDate> birbBoxTimeProperty() {return birbBoxTime;}
-        public LocalDate getBirbBoxTime() {return birbBoxTime.get();}
-        public void setBirbBoxTime(LocalDate date) {birbBoxTime.set(date);}
+    public ObjectProperty<LocalDate> birbBoxTimeProperty() {return birbBoxTime;}
+    public LocalDate getBirbBoxTime() {return birbBoxTime.get();}
+    public void setBirbBoxTime(LocalDate date) {birbBoxTime.set(date);}
 
-    public void addBirb(Birb toAdd){
-            birbs.add(toAdd);
+    public void addBirb(Birb toAdd) {
+        birbs.add(toAdd);
     }
 
-    public void skipOneDay(){
-            setBirbBoxTime(getBirbBoxTime().plusDays(1));
+    public void skipDays(int days) {
+        setBirbBoxTime(getBirbBoxTime().plusDays(days));
+        for (Birb birb : birbs) {
+            birb.ageDays(days);
+        }
+    }
+
+    public BirbBox() {
+        setBirbBoxTime(LocalDate.now());
     }
 }
