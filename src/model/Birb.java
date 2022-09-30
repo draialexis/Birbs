@@ -14,29 +14,29 @@ public class Birb {
     private static final String GREY_PAINT_STRING = "0x808080ff";
 
     private final StringProperty name = new SimpleStringProperty();
-    public StringProperty nameProperty() {return name;}
-    public String getName() {return name.get();}
-    public void setName(String name) {this.name.set(name);}
+        public StringProperty nameProperty() {return name;}
+        public String getName() {return name.get();}
+        public void setName(String name) {this.name.set(name);}
 
     private final ObjectProperty<LocalDate> dob = new SimpleObjectProperty<>();
-    public ObjectProperty<LocalDate> dobProperty() {return dob;}
-    public LocalDate getDob() {return dob.get();}
-    public void setDob(LocalDate dob) {this.dob.set(dob);}
+        public ObjectProperty<LocalDate> dobProperty() {return dob;}
+        public LocalDate getDob() {return dob.get();}
+        public void setDob(LocalDate dob) {this.dob.set(dob);}
 
     private final LongProperty age = new SimpleLongProperty();
-    public LongProperty ageProperty() {return age;}
-    public long getAge() {return age.get();}
-    public void setAge(long age) {this.age.set(age);}
+        public LongProperty ageProperty() {return age;}
+        public long getAge() {return age.get();}
+        public void setAge(long age) {this.age.set(age);}
 
     private final ObjectProperty<Paint> color = new SimpleObjectProperty<>();
-    public ObjectProperty<Paint> colorProperty() {return color;}
-    public Paint getColor() {return color.get();}
-    public void setColor(Paint color) {this.color.set(color);}
+        public ObjectProperty<Paint> colorProperty() {return color;}
+        public Paint getColor() {return color.get();}
+        public void setColor(Paint color) {this.color.set(color);}
 
     private final ObjectProperty<Paint> hunger = new SimpleObjectProperty<>();
-    public ObjectProperty<Paint> hungerProperty() {return hunger;}
-    public Paint getHunger() {return hunger.get();}
-    public void setHunger(Paint hunger) {this.hunger.set(hunger);}
+        public ObjectProperty<Paint> hungerProperty() {return hunger;}
+        public Paint getHunger() {return hunger.get();}
+        public void setHunger(Paint hunger) {this.hunger.set(hunger);}
 
     public Birb(String name, Paint color) {
         this(name, color, LocalDate.now(), LocalDate.now(), Color.GREEN);
