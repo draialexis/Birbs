@@ -54,11 +54,6 @@ public class Birb {
         setHunger(hunger);
     }
 
-    @Override
-    public String toString() {
-        return getName();
-    }
-
     public void feed(){
         System.out.println();
         setHunger(Color.GREEN);

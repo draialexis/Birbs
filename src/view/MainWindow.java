@@ -96,11 +96,14 @@ public class MainWindow {
 
     private final BirbBox birbBox = new BirbBox();
 
-    public void initialize() {
+    @FXML
+    private void initialize() {
+
+        birbsLV.itemsProperty().bind(birbBox.birbsProperty());
+        birbsLV.setCellFactory(__ -> new BirbListCell());
         birbBox.addBirb(new Birb("Alice", Color.AQUAMARINE, LocalDate.of(1995, 8, 14)));
         birbBox.addBirb(new Birb("Bob", Color.BISQUE, LocalDate.of(2001, 3, 19)));
         birbBox.addBirb(new Birb("Clyde", Color.CORNFLOWERBLUE, LocalDate.of(1992, 2, 29)));
-        birbsLV.itemsProperty().bind(birbBox.birbsProperty());
         dateTodayLbl.textProperty().bind(birbBox.birbBoxTimeProperty().asString());
     }
 }
