@@ -16,6 +16,7 @@ public class BirbListCell extends ListCell<Birb> {
                 UCBirbCell cell = new UCBirbCell(item);
                 setGraphic(cell);
             } catch (IOException e) {
+                System.err.println("couldn't load that birb cell");
                 textProperty().bind(item.nameProperty());
             }
         } else {
