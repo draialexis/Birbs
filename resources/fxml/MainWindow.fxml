@@ -1,52 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import java.lang.Integer?>
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="view.MainWindow">
+    <fx:define>
+        <Integer fx:value="-1" fx:id="minus1"/>
+    </fx:define>
+
     <left>
         <ListView fx:id="birbsLV" BorderPane.alignment="CENTER"/>
     </left>
     <center>
-        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-            <HBox>
-                <Label text="Name: "/>
-                <TextField fx:id="nameTF"/>
-            </HBox>
-            <HBox>
-                <Label text="D. o. B.: "/>
-                <Label fx:id="dobLbl"/>
-            </HBox>
-            <HBox>
-                <Label text="Days old: "/>
-                <Label fx:id="ageLbl"/>
-            </HBox>
-            <HBox>
-                <Label text="Color: "/>
-                <Circle fx:id="colorDot" fill="WHITE" radius="8.0" stroke="BLACK" strokeType="INSIDE"/>
-            </HBox>
-            <HBox>
-                <Label text="Hunger: "/>
-                <Circle fx:id="hungerDot" fill="WHITE" radius="8.0" stroke="BLACK" strokeType="INSIDE"/>
-            </HBox>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#clickFeed" text="Feed"/>
-        </VBox>
+        <GridPane>
+            <Label text="Name: "/>
+            <TextField fx:id="nameTF" GridPane.columnIndex="1"/>
+            <Button text="Feed" onAction="#clickFeed" GridPane.rowIndex="3"/>
+            <Label text="Feather color: " GridPane.rowIndex="1"/>
+            <ColorPicker fx:id="colorDot" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        </GridPane>
     </center>
     <top>
-        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <Label fx:id="dateTodayLbl" text="Today: "/>
-            <Button mnemonicParsing="false" onAction="#clickTomorrow" text="To tomorrow"/>
-        </HBox>
+        <Label text="Today: "/>
+        <Label fx:id="dateTodayLbl"/>
+        <Button onAction="#clickSkipTwoDays" text="Skip 2 days"/>
     </top>
-    <right>
-        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-            <TextField fx:id="nameForm" promptText="name"/>
-            <DatePicker fx:id="dobForm" promptText="date of birth"/>
-            <ColorPicker fx:id="colorForm" promptText="color"/>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#clickCreate" text="Create"/>
-        </VBox>
-    </right>
     <bottom>
         <Button text="Quit" onAction="#clickQuit"/>
     </bottom>

@@ -5,67 +5,59 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
 public class Birb {
-    private static final String GREEN_PAINT_STRING = "0x008000ff";
-    private static final String YELLOW_PAINT_STRING = "0xffff00ff";
-    private static final String RED_PAINT_STRING = "0xff0000ff";
-    private static final String GREY_PAINT_STRING = "0x808080ff";
+
+    /**
+     * a birb's feeding frequency
+     */
+    private int feedHz = 2;
+    /**
+     * the date of a birb's latest previous meal
+     */
+    private LocalDate prvMealDate = LocalDate.now();
+    private boolean isDead = false;
+    private final model.Color featherClr = new model.Color(0, 0, 0);
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
+
+    public model.Color getFeatherClr() {
+        return featherClr;
+    }
+
+    private final SimpleBooleanProperty isHungry = new SimpleBooleanProperty(false);
+        public boolean isIsHungry() {return isHungry.get();}
+        public SimpleBooleanProperty isHungryProperty() {return isHungry;}
 
     private final StringProperty name = new SimpleStringProperty();
         public StringProperty nameProperty() {return name;}
         public String getName() {return name.get();}
         public void setName(String name) {this.name.set(name);}
 
-    private final ObjectProperty<LocalDate> dob = new SimpleObjectProperty<>();
-        public ObjectProperty<LocalDate> dobProperty() {return dob;}
-        public LocalDate getDob() {return dob.get();}
-        public void setDob(LocalDate dob) {this.dob.set(dob);}
-
-    private final LongProperty age = new SimpleLongProperty();
-        public LongProperty ageProperty() {return age;}
-        public long getAge() {return age.get();}
-        public void setAge(long age) {this.age.set(age);}
-
-    private final ObjectProperty<Paint> color = new SimpleObjectProperty<>();
-        public ObjectProperty<Paint> colorProperty() {return color;}
-        public Paint getColor() {return color.get();}
-        public void setColor(Paint color) {this.color.set(color);}
-
-    private final ObjectProperty<Paint> hunger = new SimpleObjectProperty<>();
-        public ObjectProperty<Paint> hungerProperty() {return hunger;}
-        public Paint getHunger() {return hunger.get();}
-        public void setHunger(Paint hunger) {this.hunger.set(hunger);}
-
-    public Birb(String name, Paint color) {
-        this(name, color, LocalDate.now(), LocalDate.now(), Color.GREEN);
+    public Birb(String name, int feedHz) {
+            this.name.set(name);
+            this.feedHz = feedHz;
     }
 
-    public Birb(String name, Paint color, LocalDate dob) {
-        this(name, color, dob, LocalDate.now(), Color.GREEN);
+    public void feed(LocalDate newPrvMealDate) {
+        prvMealDate = newPrvMealDate;
+        isHungry.set(false);
     }
 
-    public Birb(String name, Paint color, LocalDate dob, LocalDate timeFromCall, Paint hunger) {
-        setName(name);
-        setColor(color);
-        setDob(dob);
-        setAge(ChronoUnit.DAYS.between(getDob(), timeFromCall));
-        setHunger(hunger);
-    }
-
-    public void feed(){
-        setHunger(Color.GREEN);
-    }
-
-    public void ageDays(int days){
-        setAge(getAge() + days);
-        for (int i = 0; i < days; i++) {
-            switch(getHunger().toString()){
-                case GREEN_PAINT_STRING -> setHunger(Color.YELLOW);
-                case YELLOW_PAINT_STRING -> setHunger(Color.RED);
-                case RED_PAINT_STRING -> setHunger(Color.GREY);
-            }
+    public void changeDay(LocalDate newDate) {
+        if(Period.between(prvMealDate, newDate).getDays() >= feedHz) {
+            isHungry.set(true);
+        }
+        if(Period.between(prvMealDate, newDate).getDays() >= feedHz * 2) {
+            setDead(true);
         }
     }
 }

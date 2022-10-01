@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 
 public class BirbBox {
 
@@ -16,23 +17,22 @@ public class BirbBox {
     public ListProperty<Birb> birbsProperty() {return birbs;}
     public ObservableList<Birb> getBirbs() {return birbs.get();}
 
-    private final ObjectProperty<LocalDate> birbBoxTime = new SimpleObjectProperty<>();
-    public ObjectProperty<LocalDate> birbBoxTimeProperty() {return birbBoxTime;}
-    public LocalDate getBirbBoxTime() {return birbBoxTime.get();}
-    public void setBirbBoxTime(LocalDate date) {birbBoxTime.set(date);}
-
     public void addBirb(Birb toAdd) {
         birbs.add(toAdd);
     }
 
-    public void skipDays(int days) {
-        setBirbBoxTime(getBirbBoxTime().plusDays(days));
-        for (Birb birb : birbs) {
-            birb.ageDays(days);
-        }
+    public void removeBirb(Birb toRemove) {
+        birbs.remove(toRemove);
     }
 
-    public BirbBox() {
-        setBirbBoxTime(LocalDate.now());
+    public void changeDay(LocalDate newDate) {
+        Iterator<Birb> it = birbs.iterator();
+        while(it.hasNext()) {
+            Birb currentBirb = it.next();
+            currentBirb.changeDay(newDate);
+            if(currentBirb.isDead()){
+                it.remove();
+            }
+        }
     }
 }
