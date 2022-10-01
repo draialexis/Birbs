@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class DateToStringBinding extends StringBinding {
 
-    private ObservableObjectValue<LocalDate> date;
+    private final ObservableObjectValue<LocalDate> date;
 
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
