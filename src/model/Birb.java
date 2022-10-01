@@ -55,7 +55,6 @@ public class Birb {
     }
 
     public void feed(){
-        System.out.println();
         setHunger(Color.GREEN);
     }
 
