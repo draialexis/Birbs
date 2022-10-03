@@ -1,61 +1,63 @@
 package view;
 
 import binding.DateToStringBinding;
-import data.Stub;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import model.Birb;
-import model.BirbBox;
-import model.DateManager;
+import viewmodel.BirbBoxVM;
+import viewmodel.BirbVM;
+import viewmodel.DateManagerVM;
 
 public class MainWindow {
 
     @FXML
     private TextField nameTF;
     @FXML
-    private ColorPicker colorDot;
+    private ColorPicker colorPckr;
     @FXML
     private Label dateTodayLbl;
     @FXML
-    private ListView<Birb> birbsLV;
+    private ListView<BirbVM> birbsLV;
 
-    private final DateManager dateManager = new DateManager();
-    private final BirbBox birbBox = new Stub().loadBirbs();
+    private final DateManagerVM dateManagerVM = new DateManagerVM();
+
+    //    private final BirbBoxVM birbBox = new Stub().loadBirbs();
+    private BirbBoxVM birbBoxVM;
+
 
     @FXML
     private void initialize() {
 
-        dateTodayLbl.textProperty().bind(new DateToStringBinding(dateManager.currentDateProperty()));
-        birbsLV.itemsProperty().bind(birbBox.birbsProperty());
-        birbsLV.getSelectionModel().selectedItemProperty().addListener((__, oldBirb, newBirb) -> {
-            if (oldBirb != null) {
-                nameTF.textProperty().unbindBidirectional(oldBirb.nameProperty());
-                colorDot.valueProperty().unbindBidirectional(oldBirb.getFeatherClr().colorProperty());
+        dateTodayLbl.textProperty().bind(new DateToStringBinding(dateManagerVM.currentDateProperty()));
+
+        birbsLV.itemsProperty().bind(birbBoxVM.birbsVMProperty());
+
+        birbsLV.getSelectionModel().selectedItemProperty().addListener((__, oldBirbVM, newBirbVM) -> {
+            if (oldBirbVM != null) {
+                nameTF.textProperty().unbindBidirectional(oldBirbVM.nameProperty());
             }
-            if (newBirb != null) {
-                nameTF.textProperty().bindBidirectional(newBirb.nameProperty());
-                colorDot.valueProperty().bindBidirectional(newBirb.getFeatherClr().colorProperty());
+            if (newBirbVM != null) {
+                nameTF.textProperty().bindBidirectional(newBirbVM.nameProperty());
             }
         });
         birbsLV.setCellFactory(__ -> new BirbListCell());
     }
 
     @FXML
-    private void clickSkipTwoDays(ActionEvent evt) {
-        dateManager.addDays(2);
-        birbBox.changeDay(dateManager.getCurrentDate());
+    private void clickSkipTwoDays() {
+        dateManagerVM.addDays(2);
+        birbBoxVM.changeDay(dateManagerVM.getCurrentDate());
     }
 
     @FXML
-    private void clickFeed(ActionEvent evt) {
-        birbsLV.getSelectionModel().getSelectedItem().feed(dateManager.getCurrentDate());
+    private void clickFeed() {
+        birbsLV.getSelectionModel().getSelectedItem().feed(dateManagerVM.getCurrentDate());
     }
 
-    public void clickQuit(ActionEvent evt) {
+    public void clickQuit() {
         birbsLV.getScene().getWindow().hide();
     }
 }

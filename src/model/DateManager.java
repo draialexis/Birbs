@@ -7,11 +7,9 @@ import javafx.beans.property.SimpleObjectProperty;
 import java.time.LocalDate;
 
 public class DateManager {
-    private final ObjectProperty<LocalDate> currentDate = new SimpleObjectProperty<>(LocalDate.now());
-    public LocalDate getCurrentDate() {return currentDate.get();}
-    public ReadOnlyObjectProperty<LocalDate> currentDateProperty() {return currentDate;}
+    private LocalDate currentDate = LocalDate.now();
 
     public void addDays(long toAdd) {
-        currentDate.set(getCurrentDate().plusDays(toAdd));
+        currentDate = currentDate.plusDays(toAdd);
     }
 }

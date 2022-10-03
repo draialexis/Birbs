@@ -18,8 +18,6 @@
             <Label text="Name: "/>
             <TextField fx:id="nameTF" GridPane.columnIndex="1"/>
             <Button text="Feed" onAction="#clickFeed" GridPane.rowIndex="3"/>
-            <Label text="Feather color: " GridPane.rowIndex="1"/>
-            <ColorPicker fx:id="colorDot" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         </GridPane>
     </center>
     <top>
